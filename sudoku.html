@@ -18,6 +18,127 @@ body {
   transition: background 0.3s;
 }
 
+/* Two-column layout */
+.layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  max-width: 860px;
+}
+
+/* Instructions panel */
+.instructions {
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  width: 340px;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+body.dark .instructions {
+  background: #1e1e2e;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+}
+
+.instructions h2 {
+  font-size: 1rem;
+  letter-spacing: 3px;
+  color: #4f46e5;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+body.dark .instructions h2 { color: #7c6fff; }
+
+.rule {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.rule-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.rule-text strong {
+  display: block;
+  font-size: 0.88rem;
+  color: #1a1a2e;
+  margin-bottom: 3px;
+}
+
+body.dark .rule-text strong { color: #c0c0e0; }
+
+.rule-text p {
+  font-size: 0.8rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+body.dark .rule-text p { color: #888; }
+
+.instructions hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 16px 0;
+}
+
+body.dark .instructions hr { border-color: #3a3a5a; }
+
+.instructions h3 {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.key-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 7px;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+body.dark .key-row { color: #999; }
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  padding: 2px 7px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #374151;
+  min-width: 28px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+body.dark .key { background: #2a2a3e; border-color: #4a4a6a; color: #c0c0e0; }
+
+/* Responsive — stack on small screens */
+@media (max-width: 860px) {
+  .layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  .instructions {
+    width: 100%;
+    max-width: 440px;
+  }
+}
+
 body.dark {
   background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0a1628 100%);
 }
@@ -384,7 +505,7 @@ body.dark .win-card p  { color: #888; }
 .cell.pop { animation: pop 0.18s ease; }
 
 @media (max-width: 400px) {
-  .container { padding: 14px; }
+  .container, .instructions { padding: 14px; }
   h1 { font-size: 1.5rem; letter-spacing: 5px; }
   .btn { padding: 7px 12px; font-size: 0.78rem; }
 }
@@ -392,6 +513,71 @@ body.dark .win-card p  { color: #888; }
 </head>
 <body>
 
+<div class="layout">
+
+<!-- ===== Instructions Panel ===== -->
+<div class="instructions">
+  <h2>How to Play</h2>
+
+  <div class="rule">
+    <span class="rule-icon">🔢</span>
+    <div class="rule-text">
+      <strong>Fill the Grid</strong>
+      <p>Place numbers 1–9 in every empty cell until the entire 9×9 grid is filled.</p>
+    </div>
+  </div>
+
+  <div class="rule">
+    <span class="rule-icon">↔️</span>
+    <div class="rule-text">
+      <strong>Each Row</strong>
+      <p>Every row must contain all digits 1–9 with no repeats.</p>
+    </div>
+  </div>
+
+  <div class="rule">
+    <span class="rule-icon">↕️</span>
+    <div class="rule-text">
+      <strong>Each Column</strong>
+      <p>Every column must contain all digits 1–9 with no repeats.</p>
+    </div>
+  </div>
+
+  <div class="rule">
+    <span class="rule-icon">⬛</span>
+    <div class="rule-text">
+      <strong>Each 3×3 Box</strong>
+      <p>Each of the nine bold-bordered 3×3 boxes must also contain 1–9 with no repeats.</p>
+    </div>
+  </div>
+
+  <div class="rule">
+    <span class="rule-icon">✏️</span>
+    <div class="rule-text">
+      <strong>Notes Mode</strong>
+      <p>Use Notes to pencil in possible numbers for a cell while you figure it out.</p>
+    </div>
+  </div>
+
+  <div class="rule">
+    <span class="rule-icon">❌</span>
+    <div class="rule-text">
+      <strong>Mistakes</strong>
+      <p>You get 3 mistakes before the game ends and the solution is revealed. Think carefully!</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Controls</h3>
+
+  <div class="key-row"><span class="key">1</span>–<span class="key">9</span> Enter a number</div>
+  <div class="key-row"><span class="key">Del</span> Erase a cell</div>
+  <div class="key-row"><span class="key">N</span> Toggle notes mode</div>
+  <div class="key-row"><span class="key">↑</span><span class="key">↓</span><span class="key">←</span><span class="key">→</span> Move between cells</div>
+</div>
+
+<!-- ===== Game Panel ===== -->
 <div class="container">
   <header>
     <div class="header-top">
@@ -441,6 +627,8 @@ body.dark .win-card p  { color: #888; }
 
   <p class="kb-hint">Arrow keys to navigate · 1–9 to enter · N for notes · Del to erase</p>
 </div>
+
+</div><!-- end .layout -->
 
 <div class="overlay" id="overlay">
   <div class="win-card">
