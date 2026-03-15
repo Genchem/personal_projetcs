@@ -15,6 +15,11 @@ body {
   align-items: center;
   justify-content: center;
   padding: 16px;
+  transition: background 0.3s;
+}
+
+body.dark {
+  background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0a1628 100%);
 }
 
 .container {
@@ -24,6 +29,12 @@ body {
   box-shadow: 0 24px 80px rgba(0,0,0,0.5);
   width: 100%;
   max-width: 440px;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark .container {
+  background: #1e1e2e;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.8);
 }
 
 header {
@@ -31,12 +42,44 @@ header {
   margin-bottom: 18px;
 }
 
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 12px;
+}
+
 h1 {
   font-size: 2rem;
   letter-spacing: 8px;
   color: #1a1a2e;
-  margin-bottom: 12px;
+  transition: color 0.3s;
 }
+
+body.dark h1 { color: #e0e0ff; }
+
+/* Dark mode toggle */
+.dark-toggle {
+  position: absolute;
+  right: 0;
+  background: none;
+  border: 2px solid #d1d5db;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: #555;
+}
+
+.dark-toggle:hover { border-color: #4f46e5; background: #eef2ff; }
+body.dark .dark-toggle { border-color: #4a4a6a; color: #aaa; }
+body.dark .dark-toggle:hover { border-color: #7c6fff; background: #2a2a4a; }
 
 .stats {
   display: flex;
@@ -44,7 +87,10 @@ h1 {
   background: #f5f7ff;
   border-radius: 12px;
   padding: 10px;
+  transition: background 0.3s;
 }
+
+body.dark .stats { background: #2a2a3e; }
 
 .stat-item { text-align: center; }
 
@@ -57,11 +103,16 @@ h1 {
   margin-bottom: 2px;
 }
 
+body.dark .stat-label { color: #777; }
+
 .stat-value {
   font-size: 1.1rem;
   font-weight: 700;
   color: #1a1a2e;
+  transition: color 0.3s;
 }
+
+body.dark .stat-value { color: #c0c0e0; }
 
 /* Board */
 .board-wrap {
@@ -80,7 +131,10 @@ h1 {
   max-width: 396px;
   aspect-ratio: 1;
   user-select: none;
+  transition: border-color 0.3s;
 }
+
+body.dark .board { border-color: #5a5a8a; }
 
 .cell {
   border: 1px solid #d0d5e8;
@@ -90,13 +144,17 @@ h1 {
   cursor: pointer;
   background: #fff;
   position: relative;
-  transition: background 0.08s;
+  transition: background 0.08s, color 0.08s, border-color 0.3s;
   font-size: clamp(13px, 3.8vw, 22px);
 }
+
+body.dark .cell { background: #1e1e2e; border-color: #3a3a5a; }
 
 /* Thick box borders */
 .cell[data-col="3"], .cell[data-col="6"] { border-left: 2.5px solid #1a1a2e; }
 .cell[data-row="3"], .cell[data-row="6"] { border-top: 2.5px solid #1a1a2e; }
+body.dark .cell[data-col="3"], body.dark .cell[data-col="6"] { border-left-color: #5a5a8a; }
+body.dark .cell[data-row="3"], body.dark .cell[data-row="6"] { border-top-color: #5a5a8a; }
 
 /* States */
 .cell.selected    { background: #c7d2fe !important; }
@@ -106,6 +164,12 @@ h1 {
 .cell.user-val    { color: #2563eb; }
 .cell.error       { color: #dc2626 !important; }
 .cell.complete    { color: #16a34a !important; }
+
+body.dark .cell.selected  { background: #3d3d7a !important; }
+body.dark .cell.highlight { background: #27273d; }
+body.dark .cell.same-num  { background: #32326a; }
+body.dark .cell.given     { color: #e0e0ff; }
+body.dark .cell.user-val  { color: #7c9fff; }
 
 /* Notes grid inside cell */
 .cell-notes {
@@ -127,6 +191,8 @@ h1 {
   line-height: 1;
 }
 
+body.dark .note-num { color: #8888aa; }
+
 /* Difficulty */
 .difficulty {
   display: flex;
@@ -147,11 +213,15 @@ h1 {
   transition: all 0.2s;
 }
 
+body.dark .diff-btn { background: #2a2a3e; border-color: #4a4a6a; color: #aaa; }
+
 .diff-btn.active {
   border-color: #4f46e5;
   background: #4f46e5;
   color: white;
 }
+
+body.dark .diff-btn.active { border-color: #7c6fff; background: #4f46e5; }
 
 .diff-btn:hover:not(.active) {
   border-color: #6366f1;
@@ -184,6 +254,11 @@ h1 {
 .btn-solve { background: #fff1f2; color: #be123c; border: 2px solid #be123c; }
 .btn-solve:hover { background: #ffe4e6; }
 
+body.dark .btn-hint { background: #1a2e1a; border-color: #16a34a; }
+body.dark .btn-hint:hover { background: #1e3a1e; }
+body.dark .btn-solve { background: #2e1a1e; border-color: #be123c; color: #f87171; }
+body.dark .btn-solve:hover { background: #3a1e22; }
+
 /* Number pad */
 .numpad {
   display: grid;
@@ -207,7 +282,10 @@ h1 {
   justify-content: center;
 }
 
+body.dark .num-btn { background: #2a2a3e; border-color: #3a3a5a; color: #c0c0e0; }
+
 .num-btn:hover { border-color: #4f46e5; background: #eef2ff; }
+body.dark .num-btn:hover { background: #32325a; border-color: #7c6fff; }
 .num-btn:active { transform: scale(0.92); }
 
 .numpad-tools {
@@ -232,16 +310,21 @@ h1 {
   gap: 6px;
 }
 
-.tool-btn:hover { border-color: #6b7280; }
+body.dark .tool-btn { background: #2a2a3e; border-color: #3a3a5a; color: #aaa; }
+body.dark .tool-btn:hover { border-color: #5a5a8a; }
 
 .tool-btn.erase-btn { color: #dc2626; border-color: #fecaca; }
 .tool-btn.erase-btn:hover { background: #fff1f2; }
+body.dark .tool-btn.erase-btn { border-color: #7a2a2a; color: #f87171; }
+body.dark .tool-btn.erase-btn:hover { background: #2e1a1a; }
 
 .tool-btn.note-btn.active {
   background: #fffbeb;
   border-color: #f59e0b;
   color: #b45309;
 }
+
+body.dark .tool-btn.note-btn.active { background: #2e2a1a; border-color: #d97706; color: #fbbf24; }
 
 /* Win overlay */
 .overlay {
@@ -265,11 +348,17 @@ h1 {
   box-shadow: 0 30px 80px rgba(0,0,0,0.4);
   max-width: 320px;
   width: 90%;
+  transition: background 0.3s;
 }
+
+body.dark .win-card { background: #1e1e2e; }
 
 .win-card .emoji { font-size: 3rem; margin-bottom: 12px; }
 .win-card h2 { font-size: 1.8rem; color: #1a1a2e; margin-bottom: 8px; }
 .win-card p { color: #666; margin-bottom: 24px; font-size: 0.95rem; }
+
+body.dark .win-card h2 { color: #e0e0ff; }
+body.dark .win-card p  { color: #888; }
 
 /* Keyboard hint */
 .kb-hint {
@@ -305,7 +394,10 @@ h1 {
 
 <div class="container">
   <header>
-    <h1>SUDOKU</h1>
+    <div class="header-top">
+      <h1>SUDOKU</h1>
+      <button class="dark-toggle" id="btn-dark" title="Toggle dark mode">🌙</button>
+    </div>
     <div class="stats">
       <div class="stat-item">
         <span class="stat-label">Time</span>
@@ -771,7 +863,31 @@ document.getElementById('btn-note').addEventListener('click', toggleNoteMode);
 //  Init
 // ============================================================
 
+// ============================================================
+//  Dark Mode
+// ============================================================
+
+function initDarkMode() {
+  const saved = localStorage.getItem('sudoku-dark');
+  if (saved === 'true') applyDark(true);
+}
+
+function applyDark(on) {
+  document.body.classList.toggle('dark', on);
+  document.getElementById('btn-dark').textContent = on ? '☀️' : '🌙';
+  localStorage.setItem('sudoku-dark', on);
+}
+
+document.getElementById('btn-dark').addEventListener('click', () => {
+  applyDark(!document.body.classList.contains('dark'));
+});
+
+// ============================================================
+//  Init
+// ============================================================
+
 buildNumpad();
+initDarkMode();
 startGame('medium');
 </script>
 </body>
